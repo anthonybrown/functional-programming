@@ -6,17 +6,14 @@ const deepClone = (obj) => {
 
 const addElement = (basket, itemName, itemPrice) => {
   return deepClone(basket).concat([
-    {
-      itemName,
-      itemPrice
-    }
+    { itemName, itemPrice, }
   ]);
 };
 
 const cupcake = addElement (
   basket,
   'cupcake',
-  2.25
+  2.25,
 );
 
 const basket1 = addElement(basket, 'Tea', 1.55)

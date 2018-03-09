@@ -1,4 +1,4 @@
-## Benefits and Drawbacks of Functional Programming
+# Benefits and Drawbacks of Functional Programming
 
   - Testability
   - Easy Maintenance

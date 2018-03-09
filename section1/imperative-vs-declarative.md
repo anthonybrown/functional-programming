@@ -1,3 +1,5 @@
+# A comparison of imperative vs declarative programming.
+
 - Imperative programming
   - Example: OOP
   - Focus on HOW

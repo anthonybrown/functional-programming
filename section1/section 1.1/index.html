@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8' />
+		<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' />
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+		<title>Functional JavaScript | Section1.1</title>
+		<link rel='stylesheet' href='style.css' />
+	</head>
+	<body>
+	<div class='container'>
+		<h1>A comparison between OOP &amp; FP</h1>
+		<p>Going to show some OO code and compare it to to some functional code</p>
+		<h3>Object Oriented Programming</h3>
+<pre>
+	<code>
+class Invoice {
+  constructor (invoiceNumber) {
+    this.invoiceNumber = invoiceNumber;
+    this.items = []
+  }
+
+  addItem( quantity, itemPrice, description ) {
+    this.items.push( { quantity, itemPrice, description } );
+  }
+
+  get sum() {
+    let sum = 0;
+    for (let i = 0; i < this.items.length; i++) {
+      let item = this.items[i];
+      sum += item.quantity * item.itemPrice;
+    }
+    return sum;
+  }
+}
+	</code>
+</pre>
+
+<div id='result'></div>
+<div class='ans'></div>
+<div class='ans2'></div>
+<h3>Functional Style</h3>
+<pre>
+  <code>
+function createInvoice (invoiceNumber) {
+  return {
+    invoiceNumber,
+    items: []
+  };
+};
+
+function clone (o) {
+  return JSON.parse(JSON.stringify(o));
+};
+
+const addItem = (invoice, quantity, itemPrice, description) => {
+  const newInvoice = clone(invoice);
+  newInvoice.items.push({
+    quantity,
+    itemPrice,
+    description
+  });
+  return newInvoice;
+}
+
+const calculateSum = (invoice) => {
+  const logReducer = (acc, item) => {
+    console.log('acc, item: ', acc, item );
+    return acc + item.quantity * item.itemPrice;
+  }
+  const reducer = (acc, item) => {
+    acc + item.quantity * item.itemPrice;
+  }
+  return invoice.items.reduce(logReducer, 0)
+}
+  </code>
+</pre>
+	</div>
+		<script src='InvoiceOO.js'></script>
+		<script src='invoiceFunctional.js'></script>
+	</body>
+</html>

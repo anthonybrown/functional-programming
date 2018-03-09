@@ -10,7 +10,7 @@ class Invoice {
 
   get sum() {
     let sum = 0;
-    for (var i = 0; i < this.items.length; i++) {
+    for (let i = 0; i < this.items.length; i++) {
       let item = this.items[i];
       sum += item.quantity * item.itemPrice;
     }

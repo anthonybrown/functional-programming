@@ -1,53 +1,51 @@
-const createInvoice = (invoiceNumber) => {
+function createInvoice (invoiceNumber) {
   return {
     invoiceNumber,
     items: []
   };
-}
+};
 
-const clone = (o) => {
+function clone (o) {
   return JSON.parse(JSON.stringify(o));
-}
-/*
-** This is a pure functional way of writing this addItem function.
-*/
-// const addItem = (invoice, quantity, itemPrice, description) => {
-//   const invoiceItems = clone(invoice.items);
-//   const newItem = {
-//     quantity,
-//     itemPrice,
-//     description
-//   };
-//
-//   return {
-//     invoiceNumber: invoice.invoiceNumber,
-//     items: [...invoiceItems, newItem]
-//   };
-// }
-/*
-** we can make the code more understandable/ readable
-** if we break some rules of functional programming.
-** Here we are using the push method, which mutates the array.
-*/
-const addItem = (invoice, quantity, itemPrice, description) => {
-  const newInvoice = clone(invoice);
-  newInvoice.items.push({
-    quantity,
-    itemPrice,
-    description
-  });
-  return newInvoice;
-}
+};
 
-const calculateSum = (invoice) => {
-  const logReducer = (acc, item) => {
-    console.log('acc, item: ', acc, item );
-    return acc + item.quantity * item.itemPrice;
-  }
-  const reducer = (acc, item) => {
-    acc + item.quantity * item.itemPrice;
-  }
-  return invoice.items.reduce(logReducer, 0)
+const addItem = (invoice, quantity, itemPrice, description) => {
+	/* PURELY FUNCTIONAL */
+	// const invoiceItems = clone(invoice.items);
+  // const newItem = {
+  //   quantity,
+  //   itemPrice,
+  //   description
+  // };
+	// return {
+	  // invoiceNumber: invoice.invoiceNumber,
+	  // items: [ ...invoiceItems, newItem ]
+	// }
+	/* COMPACT SOLUTION, BUT NOT STRICTLY FUNCTIONAL */
+	const newInvoice = clone( invoice );
+	newInvoice.items.push({
+	  quantity,
+		itemPrice,
+		description,
+	});
+
+	return newInvoice;
+};
+
+// function calculateSum( invoice ) {
+//   const reducer = (acc, item) =>
+//     acc + item.quantity + item.itemPrice;
+//   return invoice.items.reduce( reducer, 0 )
+// };
+
+function calculateSum( invoice ) {
+	const logReducer = (acc, item) => {
+	  console.log('acc, item:', acc, item);
+	  return acc + item.quantity * item.itemPrice;
+	}
+	const reducer = (acc, item) =>
+	  acc + item.quantity * item.itemPrice;
+  return invoice.items.reduce( logReducer, 0 )
 }
 
 const invoice1a = createInvoice(1);
